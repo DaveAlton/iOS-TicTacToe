@@ -10,12 +10,11 @@
 #import "Placement.h"
 
 
-
+@interface TicTacToeGame()
+@property(nonatomic) NSString *firstPlayer;
+@end
 @implementation TicTacToeGame
--(void)initWithNewButtons
-{
-    
-}
+
 -(id) reset
 {
     if(self){
@@ -28,7 +27,16 @@
         _bottomLeft = [[Placement alloc] init];
         _bottomMiddle = [[Placement alloc] init];
         _bottomRight = [[Placement alloc] init];
-        _player = @"X";
+        if([_firstPlayer isEqualToString:@"X"])
+        {
+            _player = @"O";
+            _firstPlayer = @"0";
+        }
+        else
+        {
+            _player = @"X";
+            _firstPlayer = @"X";
+        }
     }
     return self;
 }
@@ -37,6 +45,7 @@
     [self reset];
     _scoreForO = 0;
     _scoreForX = 0;
+    _firstPlayer = @"X";
     return self;
 }
 

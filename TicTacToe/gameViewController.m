@@ -62,16 +62,21 @@
             _game.scoreForO++;
             [_oScoreLabel setText:[NSString stringWithFormat:@"%d", _game.scoreForO]];
         }
+        for(UIButton *button in self.placementButtons)
+            button.enabled = NO;
     }
     if ([_game.player isEqualToString:@"X"]){
+        [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         [sender setTitle:_game.player forState:UIControlStateNormal];
         _game.player = @"O";
     } else if ([_game.player isEqualToString:@"O"]){
+        [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [sender setTitle:_game.player forState:UIControlStateNormal];
         self.game.player = @"X";
     }
 }
-- (IBAction)resetButtonTouched {
+- (void) resetBoard
+{
     _game = [_game reset];
     for(UIButton *button in self.placementButtons){
         button.enabled = YES;
@@ -79,6 +84,17 @@
         [_winnerLabel setText:@""];
     }
 }
+- (IBAction) newGameButtonTouched {
+    [self resetBoard];
+}
+- (IBAction)resetScoresButtonTouched {
+    [self resetBoard];
+    _game.scoreForX = 0;
+    _game.scoreForO = 0;
+    [_oScoreLabel setText:@"0"];
+    [_xScoreLabel setText:@"0"];
+}
+
 
 - (TicTacToeGame *)game
 {
